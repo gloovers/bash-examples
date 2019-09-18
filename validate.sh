@@ -10,17 +10,17 @@ declare -a path_list=("/mr"
                       "/appdb"
 )
 declare -a path_mount_list=("/tools/mtt"
-                            "/tools/cobaltReleaseqc"
+                            "/tools/tools"
                             "/home"
                             "/mr"
                             "/log"
                             "/var"
                             "/perf"
-                            "/appserver"
+                            "/server"
                             "/tmp"
 )
-declare -a mount_list=("nssinfrashare.westlan.com:/vol/infra_nss_snap/mttlv"
-                       "cobaltreleaseqc:/vol/infra_snap2/cobalt"
+declare -a mount_list=("serv.com:/vol/infra_nss_snap/mttlv"
+                       "rs:/vol/infra_snap2/cm"
                        "/dev/mapper/rootvg-homelv"
                        "/dev/mapper/datavg-mrlv"
                        "/dev/mapper/datavg-loglv"
@@ -35,10 +35,10 @@ echo -e "    1. Server's dirs Validation:"
 for path_chk in "${path_list[@]}"
 do
   if [ -d $path_chk ];then
-    if [[ "$(ls -lad $path_chk | awk '{print $1 " " $3 " " $4}')" == "drwxrwsr-x asadmin asadmin" ]]; then
+    if [[ "$(ls -lad $path_chk | awk '{print $1 " " $3 " " $4}')" == "drwxrwsr-x admin asadmin" ]]; then
       echo -e "    ${GREEN}OK${NC} - '$path_chk'"
     else
-      echo -e "    ${RED}FAIL${NC} - '$path_chk' doesn't have owner asadmin or drwxrwsr-x permisions !!!"
+      echo -e "    ${RED}FAIL${NC} - '$path_chk' doesn't have owner admin or drwxrwsr-x permisions !!!"
       echo -e "         + owner:group => $(ls -lad $path_chk | awk '{print $3 ":" $4}')"
       echo -e "         + permissions => $(ls -lad $path_chk | awk '{print $1}')"
     fi
